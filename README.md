@@ -3,6 +3,13 @@ Robot Kata
 
 A web application to explore a simple robot programming problem
 
+Requirements
+------------
+
+To build and serve: [Leiningen](http://leiningen.org/) and a JDK (6 or newer?)
+
+To use: a reasonably reasonable web browser with JavaScript console
+
 Usage
 -----
 
