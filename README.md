@@ -1,9 +1,7 @@
-clojure-heroku-hello-world
-==========================
+Robot Kata
+==========
 
-A skeleton project for using Clojure and ClojureScript on Heroku.
-
-Based on [the Heroku Clojure getting started guide][hcgsg] and [modern-cljs][mcljs].
+A web application to explore a simple robot programming problem
 
 Usage
 -----
@@ -14,7 +12,7 @@ Build ClojureScript code
 
 Serve locally
 
-    lein run -m hello.server <PORT>
+    lein run -m robot-kata.server <PORT>
 
 To deploy, push to Heroku.
 
@@ -25,6 +23,3 @@ Copyright © 2013 Dan Kee
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
-
-[hcgsg]: https://devcenter.heroku.com/articles/getting-started-with-clojure
-[mcljs]: https://github.com/magomimmo/modern-cljs

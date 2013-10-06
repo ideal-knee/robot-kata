@@ -1,1 +1,1 @@
-web: java $JVM_OPTS -cp target/clojure-heroku-hello-world-standalone.jar clojure.main -m hello.server $PORT
+web: java $JVM_OPTS -cp target/robot-kata-standalone.jar clojure.main -m robot-kata.server $PORT

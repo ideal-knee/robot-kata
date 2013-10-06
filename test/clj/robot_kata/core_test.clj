@@ -1,6 +1,6 @@
-(ns clojure-heroku-hello-world.core-test
+(ns robot-kata.core-test
   (:require [clojure.test :refer :all]
-            [clojure-heroku-hello-world.core :refer :all]))
+            [robot-kata.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
