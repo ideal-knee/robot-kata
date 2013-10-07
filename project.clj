@@ -7,12 +7,13 @@
 
             :uberjar-name "robot-kata-standalone.jar"
             :min-lein-version "2.1.2"
+            :source-paths ["src/clj"]
+            :test-paths ["test/clj"]
+            :plugins [[lein-cljsbuild "0.3.3"]]
             :dependencies [[org.clojure/clojure       "1.5.1"   ]
                            [org.clojure/clojurescript "0.0-1878"]
                            [ring/ring-jetty-adapter   "1.1.6"   ]
                            [compojure                 "1.1.5"   ] ]
-            :source-paths ["src/clj"]
-            :plugins [[lein-cljsbuild "0.3.3"]]
 
             :cljsbuild {:builds
                         [{:source-paths ["src/cljs"]
