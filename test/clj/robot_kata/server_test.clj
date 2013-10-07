@@ -14,4 +14,6 @@
                              (is (= "text/html" ((:headers resp) "Content-Type")) "GET of '/robot-kata.html' returns content type 'text/html'")
                              (is (> (Integer. ((:headers resp) "Content-Length")) 0) "GET of '/robot-kata.html' returns content of length > 0") ) )
                   (testing "Page not found"
-                           (is (= 0 1) "Implement page not found tests!") ) ) )
+                           (let [resp (robot-kata-routes {:request-method :get :uri "/bad-route-asdf"})]
+                             (is (= 404 (:status resp)) "GET of bad route returns 404 status")
+                             (is (= "Page not found" (:body resp)) "GET of bad route returns 'Page not found'") ) ) ) )
