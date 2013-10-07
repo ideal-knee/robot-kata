@@ -12,6 +12,6 @@
                            (let [resp (robot-kata-routes {:request-method :get :uri "/robot-kata.html" :headers {"if-modified-since" "Sat, 29 Oct 1994 19:43:31 GMT"}})]
                              (is (= 200 (:status resp)) "GET of '/robot-kata.html' returns 200 status")
                              (is (= "text/html" ((:headers resp) "Content-Type")) "GET of '/robot-kata.html' returns content type 'text/html'")
-                             (is (> ((:headers resp) "Content-Length") 0) "GET of '/robot-kata.html' returns content of length > 0") ) )
+                             (is (> (Integer. ((:headers resp) "Content-Length")) 0) "GET of '/robot-kata.html' returns content of length > 0") ) )
                   (testing "Page not found"
                            (is (= 0 1) "Implement page not found tests!") ) ) )
