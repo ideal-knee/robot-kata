@@ -6,9 +6,9 @@
             [compojure.route    :refer [resources not-found]] ) )
 
 (defroutes robot-kata-routes
-           (GET "/" [_] (redirect "/robot-kata.html"))
-           (resources "/")
-           (not-found "Page not found") )
+  (GET "/" [_] (redirect "/robot-kata.html"))
+  (resources "/")
+  (not-found "Page not found") )
 
 (defn -main [port]
   (run-jetty (site robot-kata-routes) {:port (Integer. port) :join? false}) )
