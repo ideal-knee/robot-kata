@@ -10,12 +10,20 @@
   :source-paths ["src/clj"]
   :test-paths ["test/clj"]
   :plugins [[lein-cljsbuild                  "0.3.3"]
+            [lein-ring                       "0.8.7"]
             [com.cemerick/clojurescript.test "0.1.0"] ]
   :dependencies [[org.clojure/clojure       "1.5.1"   ]
                  [org.clojure/clojurescript "0.0-1878"]
                  [ring/ring-jetty-adapter   "1.1.6"   ]
-                 [compojure                 "1.1.5"   ] ]
+                 [compojure                 "1.1.5"   ]
+                 [com.cemerick/piggieback   "0.1.0"   ] ]
   :hooks [leiningen.cljsbuild]
+  :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
+  :ring {:handler robot-kata.server/handler}
+  :injections [(require '[cljs.repl.browser   :refer [repl-env ]]
+                        '[cemerick.piggieback :refer [cljs-repl]] )
+               (defn browser-repl []
+                 (cljs-repl :repl-env (repl-env :port 9000)) ) ]
 
   :cljsbuild {:builds {:dev {:source-paths ["src/cljs"]
                              :compiler {:output-to "resources/public/robot-kata.js"

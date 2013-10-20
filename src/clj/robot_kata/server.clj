@@ -10,5 +10,7 @@
   (resources "/")
   (not-found "Page not found") )
 
+(def handler (site robot-kata-routes))
+
 (defn -main [port]
-  (run-jetty (site robot-kata-routes) {:port (Integer. port) :join? false}) )
+  (run-jetty handler {:port (Integer. port) :join? false}) )
