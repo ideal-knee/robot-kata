@@ -1,0 +1,6 @@
+* To Do
+** Add dev, test, and prod builds
+** Usage examples
+*** Dev (repl, server, continuous compile)
+*** Prod (uberjar, serve local, deploy)
+*** Test
