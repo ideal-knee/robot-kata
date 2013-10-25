@@ -1,0 +1,11 @@
+body {
+  font-family: "Helvetica Neue";
+}
+
+#floor {
+  border: thin solid black;
+}
+
+#floor-div {
+  position: relative;
+}

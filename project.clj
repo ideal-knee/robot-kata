@@ -18,13 +18,14 @@
                  [compojure                 "1.1.5"   ]
                  [com.cemerick/piggieback   "0.1.0"   ]
                  [domina                    "1.0.2"   ] ]
-  :hooks [leiningen.cljsbuild]
+  ; :hooks [leiningen.cljsbuild]
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-  :ring {:handler robot-kata.server/handler}
+  :ring {:handler robot-kata.server/handler
+         :open-browser? false }
   :injections [(require '[cljs.repl.browser   :refer [repl-env ]]
                         '[cemerick.piggieback :refer [cljs-repl]] )
                (defn browser-repl []
-                 (cljs-repl :repl-env (repl-env :port 9000)) )
+                 (cljs-repl :repl-env (repl-env :port 8000)) )
                (println ">>>>>>>>>> To launch browser repl: '(browser-repl)' <<<<<<<<<<<") ]
 
   :cljsbuild {:builds {:dev {:source-paths ["src/cljs"]
