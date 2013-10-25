@@ -1,3 +1,4 @@
 (ns robot-kata.core)
 
-(.write js/document "Robot kata!!!")
+(defn get-2d-context [canvas]
+  (.getContext canvas "2d") )
