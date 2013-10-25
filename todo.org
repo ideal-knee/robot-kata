@@ -1,7 +1,8 @@
 * To Do
-** Dev usage example
+** Dev usage example in README
 *** Dev (repl, server, continuous compile)
 ** Add test, and prod builds
-** Other usage example
+** Other usage examples in README
 *** Prod (uberjar, serve local, deploy)
+**** Get REPL out
 *** Test
