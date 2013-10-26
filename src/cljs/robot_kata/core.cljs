@@ -32,16 +32,17 @@
           true                                                                             "black" ) ) )
 
 (defn ^:export run []
-  (let [floor   (sel1 :#floor)
-        channel (chan)         ]
+  (let [floor         (sel1 :#floor)
+        floor-context (get-2d-context floor)
+        channel       (chan)                 ]
 
-    (load-image (get-2d-context floor) "roomba-dock.png" #(js/console.log "Robot Kata!"))
+    (load-image floor-context "roomba-dock.png" #(js/console.log "Robot Kata!"))
 
     (listen floor MOUSEMOVE #(put! channel %))
 
     (go
      (while true
        (let [event (<! channel)]
-         (js/console.log (get-color-name (get-pixel-color (get-2d-context floor)
+         (js/console.log (get-color-name (get-pixel-color floor-context
                                                           (get-event-offset-position event) ))) ) ) ) ) )
 

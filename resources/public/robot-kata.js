@@ -36677,75 +36677,75 @@ robot_kata.core.get_color_name = function get_color_name(color) {
 };
 robot_kata.core.run = function run() {
   var floor = document.getElementById("floor");
+  var floor_context = robot_kata.core.get_2d_context.call(null, floor);
   var channel = cljs.core.async.chan.call(null);
-  robot_kata.core.load_image.call(null, robot_kata.core.get_2d_context.call(null, floor), "roomba-dock.png", function() {
+  robot_kata.core.load_image.call(null, floor_context, "roomba-dock.png", function() {
     return console.log("Robot Kata!")
   });
-  goog.events.listen.call(null, floor, goog.events.EventType.MOUSEMOVE, function(p1__15259_SHARP_) {
-    return cljs.core.async.put_BANG_.call(null, channel, p1__15259_SHARP_)
+  goog.events.listen.call(null, floor, goog.events.EventType.MOUSEMOVE, function(p1__15570_SHARP_) {
+    return cljs.core.async.put_BANG_.call(null, channel, p1__15570_SHARP_)
   });
   var c__5052__auto__ = cljs.core.async.chan.call(null, 1);
   cljs.core.async.impl.dispatch.run.call(null, function() {
     var f__5053__auto__ = function() {
-      var switch__5002__auto__ = function(state_15304) {
-        var state_val_15305 = state_15304[1];
-        if(state_val_15305 === 7) {
-          var inst_15291 = state_15304[2];
-          var inst_15292 = robot_kata.core.get_2d_context.call(null, floor);
-          var inst_15293 = robot_kata.core.get_event_offset_position.call(null, inst_15291);
-          var inst_15294 = robot_kata.core.get_pixel_color.call(null, inst_15292, inst_15293);
-          var inst_15295 = robot_kata.core.get_color_name.call(null, inst_15294);
-          var inst_15296 = console.log(inst_15295);
-          var state_15304__$1 = function() {
-            var statearr_15306 = state_15304;
-            statearr_15306[5] = inst_15296;
-            return statearr_15306
+      var switch__5002__auto__ = function(state_15613) {
+        var state_val_15614 = state_15613[1];
+        if(state_val_15614 === 7) {
+          var inst_15601 = state_15613[2];
+          var inst_15602 = robot_kata.core.get_event_offset_position.call(null, inst_15601);
+          var inst_15603 = robot_kata.core.get_pixel_color.call(null, floor_context, inst_15602);
+          var inst_15604 = robot_kata.core.get_color_name.call(null, inst_15603);
+          var inst_15605 = console.log(inst_15604);
+          var state_15613__$1 = function() {
+            var statearr_15615 = state_15613;
+            statearr_15615[5] = inst_15605;
+            return statearr_15615
           }();
-          var statearr_15307_15316 = state_15304__$1;
-          statearr_15307_15316[2] = null;
-          statearr_15307_15316[1] = 2;
+          var statearr_15616_15625 = state_15613__$1;
+          statearr_15616_15625[2] = null;
+          statearr_15616_15625[1] = 2;
           return new cljs.core.Keyword(null, "recur", "recur", 1122293407)
         }else {
-          if(state_val_15305 === 6) {
-            var inst_15300 = state_15304[2];
-            var state_15304__$1 = state_15304;
-            var statearr_15308_15317 = state_15304__$1;
-            statearr_15308_15317[2] = inst_15300;
-            statearr_15308_15317[1] = 3;
+          if(state_val_15614 === 6) {
+            var inst_15609 = state_15613[2];
+            var state_15613__$1 = state_15613;
+            var statearr_15617_15626 = state_15613__$1;
+            statearr_15617_15626[2] = inst_15609;
+            statearr_15617_15626[1] = 3;
             return new cljs.core.Keyword(null, "recur", "recur", 1122293407)
           }else {
-            if(state_val_15305 === 5) {
-              var state_15304__$1 = state_15304;
-              var statearr_15309_15318 = state_15304__$1;
-              statearr_15309_15318[2] = null;
-              statearr_15309_15318[1] = 6;
+            if(state_val_15614 === 5) {
+              var state_15613__$1 = state_15613;
+              var statearr_15618_15627 = state_15613__$1;
+              statearr_15618_15627[2] = null;
+              statearr_15618_15627[1] = 6;
               return new cljs.core.Keyword(null, "recur", "recur", 1122293407)
             }else {
-              if(state_val_15305 === 4) {
-                var state_15304__$1 = state_15304;
-                return cljs.core.async.impl.ioc_helpers.take_BANG_.call(null, state_15304__$1, 7, channel)
+              if(state_val_15614 === 4) {
+                var state_15613__$1 = state_15613;
+                return cljs.core.async.impl.ioc_helpers.take_BANG_.call(null, state_15613__$1, 7, channel)
               }else {
-                if(state_val_15305 === 3) {
-                  var inst_15302 = state_15304[2];
-                  var state_15304__$1 = state_15304;
-                  return cljs.core.async.impl.ioc_helpers.return_chan.call(null, state_15304__$1, inst_15302)
+                if(state_val_15614 === 3) {
+                  var inst_15611 = state_15613[2];
+                  var state_15613__$1 = state_15613;
+                  return cljs.core.async.impl.ioc_helpers.return_chan.call(null, state_15613__$1, inst_15611)
                 }else {
-                  if(state_val_15305 === 2) {
-                    var state_15304__$1 = state_15304;
+                  if(state_val_15614 === 2) {
+                    var state_15613__$1 = state_15613;
                     if(true) {
-                      var statearr_15310_15319 = state_15304__$1;
-                      statearr_15310_15319[1] = 4
+                      var statearr_15619_15628 = state_15613__$1;
+                      statearr_15619_15628[1] = 4
                     }else {
-                      var statearr_15311_15320 = state_15304__$1;
-                      statearr_15311_15320[1] = 5
+                      var statearr_15620_15629 = state_15613__$1;
+                      statearr_15620_15629[1] = 5
                     }
                     return new cljs.core.Keyword(null, "recur", "recur", 1122293407)
                   }else {
-                    if(state_val_15305 === 1) {
-                      var state_15304__$1 = state_15304;
-                      var statearr_15312_15321 = state_15304__$1;
-                      statearr_15312_15321[2] = null;
-                      statearr_15312_15321[1] = 2;
+                    if(state_val_15614 === 1) {
+                      var state_15613__$1 = state_15613;
+                      var statearr_15621_15630 = state_15613__$1;
+                      statearr_15621_15630[2] = null;
+                      statearr_15621_15630[1] = 2;
                       return new cljs.core.Keyword(null, "recur", "recur", 1122293407)
                     }else {
                       return null
@@ -36761,14 +36761,14 @@ robot_kata.core.run = function run() {
         return function() {
           var state_machine__5003__auto__ = null;
           var state_machine__5003__auto____0 = function() {
-            var statearr_15314 = new Array(6);
-            statearr_15314[0] = state_machine__5003__auto__;
-            statearr_15314[1] = 1;
-            return statearr_15314
+            var statearr_15623 = new Array(6);
+            statearr_15623[0] = state_machine__5003__auto__;
+            statearr_15623[1] = 1;
+            return statearr_15623
           };
-          var state_machine__5003__auto____1 = function(state_15304) {
+          var state_machine__5003__auto____1 = function(state_15613) {
             while(true) {
-              var result__5004__auto__ = switch__5002__auto__.call(null, state_15304);
+              var result__5004__auto__ = switch__5002__auto__.call(null, state_15613);
               if(cljs.core.keyword_identical_QMARK_.call(null, result__5004__auto__, new cljs.core.Keyword(null, "recur", "recur", 1122293407))) {
                 continue
               }else {
@@ -36777,12 +36777,12 @@ robot_kata.core.run = function run() {
               break
             }
           };
-          state_machine__5003__auto__ = function(state_15304) {
+          state_machine__5003__auto__ = function(state_15613) {
             switch(arguments.length) {
               case 0:
                 return state_machine__5003__auto____0.call(this);
               case 1:
-                return state_machine__5003__auto____1.call(this, state_15304)
+                return state_machine__5003__auto____1.call(this, state_15613)
             }
             throw new Error("Invalid arity: " + arguments.length);
           };
@@ -36793,9 +36793,9 @@ robot_kata.core.run = function run() {
       }(switch__5002__auto__)
     }();
     var state__5054__auto__ = function() {
-      var statearr_15315 = f__5053__auto__.call(null);
-      statearr_15315[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = c__5052__auto__;
-      return statearr_15315
+      var statearr_15624 = f__5053__auto__.call(null);
+      statearr_15624[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = c__5052__auto__;
+      return statearr_15624
     }();
     return cljs.core.async.impl.ioc_helpers.run_state_machine_wrapped.call(null, state__5054__auto__)
   });
