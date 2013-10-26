@@ -1,7 +1,9 @@
 (ns robot-kata.core-test
-  (:require-macros [cemerick.cljs.test :refer (is deftest testing)])
-  (:require        [cemerick.cljs.test                                       ]
-                   [robot-kata.core    :refer (get-2d-context get-color-name)] ) )
+
+  (:require [cemerick.cljs.test                                       ]
+            [robot-kata.core    :refer (get-2d-context get-color-name)] )
+
+  (:require-macros [cemerick.cljs.test :refer (is deftest testing)]) )
 
 (deftest robot-kata-core-test
 
