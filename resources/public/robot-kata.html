@@ -12,8 +12,14 @@
   <body>
     <h1>Robot Kata</h1>
 
-    <div>
-      <canvas id="floor" width="800" height="800"></canvas>
+    <div id="display-parent-div">
+      <div id="canvas-div">
+	<canvas id="floor" width="800" height="800"></canvas>
+      </div>
+
+      <div id="svg-div">
+	<svg id="robot-svg" width="800" height="800"></svg>
+      </div>
     </div>
 
     <script type="text/javascript" src="robot-kata.js"></script>

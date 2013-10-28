@@ -2,10 +2,19 @@ body {
   font-family: "Helvetica Neue";
 }
 
+#display-parent-div {
+  position: relative;
+}
+
+#canvas-div {
+    position: absolute;
+}
+
 #floor {
   border: thin solid black;
 }
 
-#floor-div {
-  position: relative;
+#svg-div {
+    position: absolute;
 }
+
