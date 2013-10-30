@@ -2,7 +2,8 @@
 
   (:require [cljs.core.async       :refer [<! chan put!]]
             [goog.events           :refer [listen      ]]
-            [goog.events.EventType :refer [MOUSEMOVE   ]] )
+            [goog.events.EventType :refer [MOUSEMOVE   ]]
+            [dommy.core            :refer [append!     ]] )
 
   (:require-macros [cljs.core.async.macros :refer [go  ]]
                    [dommy.macros           :refer [sel1]] ) )
@@ -32,13 +33,14 @@
           true                                                                             "black" ) ) )
 
 (defn ^:export run []
-  (let [floor         (sel1 :#floor)
-        floor-context (get-2d-context floor)
-        channel       (chan)                 ]
+  (let [floor-context (get-2d-context (sel1 :#floor))
+        channel       (chan)                          ]
 
     (load-image floor-context "roomba-dock.png" #(js/console.log "Robot Kata!"))
 
-    (listen floor MOUSEMOVE #(put! channel %))
+    (listen (sel1 :#robot-svg) MOUSEMOVE #(put! channel %))
+
+    (append! (sel1 :#robot-svg) [:circle {:cx 400 :cy 400 :r 30 :fill "black"}])
 
     (go
      (while true

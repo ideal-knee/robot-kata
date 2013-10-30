@@ -18,7 +18,7 @@
                  [ring/ring-jetty-adapter   "1.1.6"                 ]
                  [compojure                 "1.1.5"                 ]
                  [com.cemerick/piggieback   "0.1.0"                 ]
-                 [prismatic/dommy           "0.1.1"                 ] ]
+                 [prismatic/dommy           "0.1.3-SNAPSHOT"        ] ]
   ; :hooks [leiningen.cljsbuild]
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :ring {:handler robot-kata.server/handler
