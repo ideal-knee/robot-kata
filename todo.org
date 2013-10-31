@@ -1,8 +1,10 @@
 * To Do
 ** Dev usage example in README
 *** Dev (repl, server, continuous compile)
+*** lein install of dommy
 ** Add test, and prod builds
 ** Other usage examples in README
 *** Prod (uberjar, serve local, deploy)
-**** Get REPL out
 *** Test
+** Package dommy appropriately for deployment
+** Clean up project.cljs
