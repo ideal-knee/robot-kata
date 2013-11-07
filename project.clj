@@ -35,3 +35,4 @@
                                          :pretty-print true } } }
               
               :test-commands {"phantom-test" ["phantomjs" :runner "target/robot-kata-test.js"]} } )
+
