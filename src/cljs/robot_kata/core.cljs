@@ -3,8 +3,7 @@
   (:require [cljs.core.async       :refer [<! chan put!  ]]
             [goog.events           :refer [listen        ]]
             [goog.events.EventType :refer [MOUSEMOVE     ]]
-            [dommy.core            :refer [append!       ]]
-            [robot-kata.robot      :refer [make-robot-svg]] )
+            [robot-kata.robot      :refer [init-robot-svg]] )
 
   (:require-macros [cljs.core.async.macros :refer [go  ]]
                    [dommy.macros           :refer [sel1]] ) )
@@ -41,7 +40,7 @@
 
     (listen (sel1 :#robot-svg) MOUSEMOVE #(put! channel %))
 
-    (append! (sel1 :#robot-svg) (make-robot-svg))
+    (init-robot-svg (sel1 :#robot-svg))
 
     (go
      (while true
