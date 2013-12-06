@@ -36,3 +36,10 @@
     (append! svg robot)
     (set-position! robot :x 400 :y 400 :theta 30) ) )
 
+(defn calculate-next-position [position distance theta]
+  (let [new-theta-degrees (+ (position :theta) theta)
+        new-theta (* new-theta-degrees (/ js/Math.PI 180)) ]
+    {:x (+ (position :x) (* distance (js/Math.sin new-theta)))
+     :y (+ (position :y) (- (* distance (js/Math.cos new-theta))))
+     :theta new-theta-degrees } ) )
+
