@@ -18,10 +18,10 @@
 
   (testing "set-position!"
     (let [g (node [:g])]
-      (set-position! g :x 1 :y 2 :theta 3)
-      (is (= (attr g :transform) "translate(1, 2) rotate(3)") "translates and rotates based on keyword arguments")
-      (set-position! g)
-      (is (= (attr g :transform) "translate(0, 0) rotate(0)") "defaults to 0 for keyword arguments") ) )
+      (set-position! g {:x 1 :y 2 :theta 3})
+      (is (= (attr g :transform) "translate(1, 2) rotate(3)") "translates and rotates based on position argument")
+      (set-position! g {})
+      (is (= (attr g :transform) "translate(0, 0) rotate(0)") "defaults to 0 for fields missing from position argument") ) )
 
   (testing "calculate-next-position"
     (let [new-position (calculate-next-position {:x 0 :y 0 :theta 0} 10 0)]

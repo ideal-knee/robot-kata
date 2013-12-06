@@ -28,13 +28,16 @@
                           :stroke "none"
                           :fill   (params :sensor-color) }] ]) )
 
-(defn set-position! [node & {:keys [x y theta] :or {x 0 y 0 theta 0}}]
-  (set-attr! node :transform (format "translate(%s, %s) rotate(%s)" (str x) (str y) (str theta))) )
+(defn set-position! [node position]
+  (set-attr! node :transform (format "translate(%s, %s) rotate(%s)"
+                                     (str (position :x     0))
+                                     (str (position :y     0))
+                                     (str (position :theta 0)) )) )
 
 (defn init-robot-svg [svg]
   (let [robot (make-robot-graphic robot-params)]
     (append! svg robot)
-    (set-position! robot :x 400 :y 400 :theta 30) ) )
+    (set-position! robot {:x 400 :y 400 :theta 30}) ) )
 
 (defn calculate-next-position [position distance theta]
   (let [new-theta-degrees (+ (position :theta) theta)
