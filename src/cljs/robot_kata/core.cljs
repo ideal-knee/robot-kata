@@ -3,7 +3,7 @@
   (:require [cljs.core.async       :refer [<! chan put!  ]]
             [goog.events           :refer [listen        ]]
             [goog.events.EventType :refer [MOUSEMOVE     ]]
-            [robot-kata.robot      :refer [init-robot-svg]] )
+            [robot-kata.robot      :refer [get-sensor-position-from-mouse init-robot-svg set-position!]] )
 
   (:require-macros [cljs.core.async.macros :refer [go  ]]
                    [dommy.macros           :refer [sel1]] ) )
@@ -45,5 +45,6 @@
     (go
      (while true
        (let [event (<! channel)]
+         (set-position! (sel1 :#robot) (assoc (get-event-offset-position event) :theta 135))
          (js/console.log (get-color-name (get-pixel-color floor-context
-                                                          (get-event-offset-position event) ))) ) ) ) ) )
+                                                          (get-sensor-position-from-mouse (assoc (get-event-offset-position event) :theta 135)) ))) ) ) ) ) )

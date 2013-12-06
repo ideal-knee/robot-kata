@@ -46,3 +46,10 @@
      :y (+ (position :y) (- (* distance (js/Math.cos new-theta))))
      :theta new-theta-degrees } ) )
 
+(defn get-sensor-position [robot-position robot-params]
+  (calculate-next-position robot-position (robot-params :center-to-sensor-distance) 0) )
+
+; ???? For testing, remove
+(defn get-sensor-position-from-mouse [mouse-position]
+  (get-sensor-position mouse-position robot-params) )
+
