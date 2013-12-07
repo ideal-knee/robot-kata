@@ -7,17 +7,18 @@
 
   (:require-macros [dommy.macros :refer [sel1]]) )
 
-(def robot-params {:robot-radius              35
-                   :center-to-sensor-distance 30
-                   :sensor-radius             2.5
-                   :bumper-width              2
-                   :robot-color               "silver"
-                   :bumper-color              "black"
-                   :sensor-color              "black" })
+(def robot-params {:robot-radius              35 ; pixels
+                   :center-to-sensor-distance 30 ; pixels
+                   :sensor-radius              3 ; pixels
+                   :bumper-width               2 ; pixels
+                   :robot-color         "silver"
+                   :bumper-color         "black"
+                   :sensor-color         "black" })
 
 (defn init-robot-svg [svg]
   (append! svg (make-robot-graphic robot-params))
-  (animate {:x 0 :y 0 :theta 135}) )
+  (animate {:x 0 :y 0 :theta 135})
+  (animate-interval 1000 #(js/console.log "hi")) )
 
 (defn animate [robot-position]
   (js/setTimeout #(let [new-robot-position (calculate-next-position robot-position 5 0)]
@@ -27,4 +28,14 @@
                                                                                           robot-params ) )))
                     (animate new-robot-position) )
                  200 ) )
+
+(defn animate-interval
+  ([period func] (animate-interval period func 0))
+  ([period func last-tick-time]
+     (js/requestAnimationFrame #(let [tick-time (.now js/Date)]
+                                  (if (> (- tick-time last-tick-time) period)
+                                    (do
+                                      (func)
+                                      (animate-interval period func tick-time) )
+                                    (animate-interval period func last-tick-time) ) )) ) )
 
