@@ -1,11 +1,9 @@
-(ns robot-kata.robot-test
+(ns robot-kata.geometry-test
 
-  (:require [cemerick.cljs.test                       ]
-            [dommy.core         :refer [attr         ]]
-            [robot-kata.robot   :refer [calculate-next-position set-position!]] )
+  (:require [cemerick.cljs.test                                  ]
+            [robot-kata.geometry :refer [calculate-next-position]] )
 
-  (:require-macros [cemerick.cljs.test :refer (is deftest testing)]
-                   [dommy.macros       :refer (node)]) )
+  (:require-macros [cemerick.cljs.test :refer [is deftest testing]]) )
 
 ; ???? Probably better way to do this...
 (defn approx?
@@ -14,15 +12,7 @@
   ([a b threshold]
      (< (js/Math.abs (- a b)) threshold) ) )
 
-(deftest robot-kata-robot-test
-
-  (testing "set-position!"
-    (let [g (node [:g])]
-      (set-position! g {:x 1 :y 2 :theta 3})
-      (is (= (attr g :transform) "translate(1, 2) rotate(3)") "translates and rotates based on position argument")
-      (set-position! g {})
-      (is (= (attr g :transform) "translate(0, 0) rotate(0)") "defaults to 0 for fields missing from position argument") ) )
-
+(deftest robot-kata-geometry-test
   (testing "calculate-next-position"
     (let [new-position (calculate-next-position {:x 0 :y 0 :theta 0} 10 0)]
       (is (approx? (new-position :x)       0) "moves correctly up y axis")

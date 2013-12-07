@@ -3,7 +3,8 @@
   (:require [cljs.core.async       :refer [<! chan put!  ]]
             [goog.events           :refer [listen        ]]
             [goog.events.EventType :refer [MOUSEMOVE     ]]
-            [robot-kata.robot      :refer [get-2d-context get-sensor-position-from-mouse init-robot-svg set-position!]] )
+            [robot-kata.image      :refer [get-2d-context]]
+            [robot-kata.robot      :refer [init-robot-svg]] )
 
   (:require-macros [cljs.core.async.macros :refer [go  ]]
                    [dommy.macros           :refer [sel1]] ) )
@@ -24,15 +25,5 @@
 
     (listen (sel1 :#robot-svg) MOUSEMOVE #(put! channel %))
 
-    (init-robot-svg (sel1 :#robot-svg))
-
-    #_
-    (go
-     (while true
-       (let [event (<! channel)]
-         (set-position! (sel1 :#robot) (assoc (get-event-offset-position event) :theta 135))
-         (js/console.log (get-color-name (get-pixel-color
-                                          floor-context
-                                          (get-sensor-position-from-mouse
-                                           (assoc (get-event-offset-position event) :theta 135) ) ))) ) ) ) ) )
+    (init-robot-svg (sel1 :#robot-svg)) ) )
 

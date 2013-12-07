@@ -1,11 +1,11 @@
-(ns robot-kata.core-test
+(ns robot-kata.image-test
 
   (:require [cemerick.cljs.test                                       ]
-            [robot-kata.core    :refer (get-2d-context get-color-name)] )
+            [robot-kata.image   :refer [get-2d-context get-color-name]] )
 
-  (:require-macros [cemerick.cljs.test :refer (is deftest testing)]) )
+  (:require-macros [cemerick.cljs.test :refer [is deftest testing]]) )
 
-(deftest robot-kata-core-test
+(deftest robot-kata-image-test
 
   (testing "get-2d-context"
     (let [canvas (.createElement js/document "canvas")]
