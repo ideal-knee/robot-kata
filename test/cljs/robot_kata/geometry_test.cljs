@@ -1,7 +1,7 @@
 (ns robot-kata.geometry-test
 
   (:require [cemerick.cljs.test                                  ]
-            [robot-kata.geometry :refer [calculate-next-position]] )
+            [robot-kata.geometry :refer [calculate-next-position calculate-position-delta]] )
 
   (:require-macros [cemerick.cljs.test :refer [is deftest testing]]) )
 
@@ -32,5 +32,10 @@
     (let [new-position (calculate-next-position {:x 0 :y 0 :theta 180} {:distance 10 :theta 45})]
       (is (approx? (new-position :x)      (- (js/Math.sqrt 50))) "turns and moves correctly at an angle")
       (is (approx? (new-position :y)          (js/Math.sqrt 50)) "turns and moves correctly at an angle")
-      (is (approx? (new-position :theta)                    225) "turns and moves correctly at an angle") ) ) )
+      (is (approx? (new-position :theta)                    225) "turns and moves correctly at an angle") ) )
+
+  (testing "calculate-position-delta"
+    (let [position-delta (calculate-position-delta {:distance 100 :theta 100} 500)]
+      (is (approx? (position-delta :distance) 50) "calculates position delta based on elapsed time")
+      (is (approx? (position-delta :theta   ) 50) "calculates position delta based on elapsed time")) ) )
 
