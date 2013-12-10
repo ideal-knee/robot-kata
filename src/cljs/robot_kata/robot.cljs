@@ -17,8 +17,9 @@
 
 (defn init-robot-svg [svg]
   (append! svg (make-robot-graphic robot-params))
-  (animate {:x 0 :y 0 :theta 135})
-  (animate-interval 1000 #(js/console.log "hi")) )
+  #_(animate {:x 0 :y 0 :theta 135})
+  #_(animate-interval 1000 #(js/console.log "hi"))
+  (simulate {:x 400 :y 800 :theta 0} {:distance 0 :theta 0} (.now js/Date)) )
 
 (defn animate [robot-position]
   (js/setTimeout #(let [new-robot-position (calculate-next-position robot-position 5 0)]
@@ -38,4 +39,17 @@
                                       (func)
                                       (animate-interval period func tick-time) )
                                     (animate-interval period func last-tick-time) ) )) ) )
+
+(defn simulate [robot-position robot-velocity last-tick-time]
+  (let [tick-time          (.now js/Date)
+        elapsed-time       (min (- tick-time last-tick-time) 100)
+        new-robot-position (calculate-next-position robot-position
+                                                    (calculate-position-delta robot-velocity elapsed-time) ) ]
+    (set-position! (sel1 :#robot) new-robot-position)
+    (if (continue-simulation?)
+      (js/requestAnimationFrame #(simulate new-robot-position
+                                           (if (time-for-control-tick?)
+                                             (get-new-robot-velocity new-robot-position)
+                                             robot-velocity )
+                                           tick-time ))  ) ) )
 
