@@ -23,7 +23,7 @@
   (defn time-for-control-tick? []
     (let [current-time (.now js/Date)]
       (if (> (- current-time @last-tick-time))
-        (swap! last-tick-time (fn [_] current-time)) ) ) ) )
+        (reset! last-tick-time current-time) ) ) ) )
 
 (defn get-new-robot-velocity [robot-position]
   (let [color (get-color-name (get-pixel-color (get-2d-context (sel1 :#floor))
@@ -31,7 +31,14 @@
     (cond (= color "white") {:trans 50 :rot  0}
           :else             {:trans  0 :rot 10} ) ) )
 
-(defn continue-simulation? [] true)
+(let [stop-simulation? (atom false)]
+  (defn stop-simulation! []
+    (reset! stop-simulation? true) )
+  
+  (defn continue-simulation? []
+    (if @stop-simulation?
+      (reset! stop-simulation? false) ; Returns false
+      true ) ) )
 
 (defn simulate [previous-robot-position robot-velocity last-tick-time]
   (let [tick-time      (.now js/Date)
