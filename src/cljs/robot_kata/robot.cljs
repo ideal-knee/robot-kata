@@ -25,17 +25,15 @@
       (if (> (- current-time @last-tick-time))
         (reset! last-tick-time current-time) ) ) ) )
 
-(defn get-new-robot-velocity [robot-position]
-  (let [color (get-color-name (get-pixel-color (get-2d-context (sel1 :#floor))
-                                               (get-sensor-position robot-position robot-params) ))]
-    (cond (= color "white") {:trans 50 :rot  0}
-          :else             {:trans  0 :rot 10} ) ) )
+(defn get-new-robot-velocity [sensed-color]
+  (cond (= sensed-color "white") {:trans 50 :rot  0}
+        :else                    {:trans  0 :rot 10} ) )
 
 (let [stop-simulation? (atom false)]
   (defn stop-simulation! []
     (reset! stop-simulation? true) )
   
-  (defn continue-simulation? []
+  (defn continue-simulation? [sensed-color]
     (if @stop-simulation?
       (reset! stop-simulation? false) ; Returns false
       true ) ) )
@@ -44,12 +42,14 @@
   (let [tick-time      (.now js/Date)
         elapsed-time   (min (- tick-time last-tick-time) 100)
         robot-position (calculate-next-position previous-robot-position
-                                                (calculate-position-delta robot-velocity elapsed-time) ) ]
+                                                (calculate-position-delta robot-velocity elapsed-time) )
+        sensed-color   (get-color-name (get-pixel-color (get-2d-context (sel1 :#floor))
+                                                        (get-sensor-position robot-position robot-params) )) ]
     (set-position! (sel1 :#robot) robot-position)
-    (if (continue-simulation?)
+    (if (continue-simulation? sensed-color)
       (js/requestAnimationFrame #(simulate robot-position
                                            (if (time-for-control-tick?)
-                                             (get-new-robot-velocity robot-position)
+                                             (get-new-robot-velocity sensed-color)
                                              robot-velocity )
                                            tick-time ))  ) ) )
 
