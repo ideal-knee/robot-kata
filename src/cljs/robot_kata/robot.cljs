@@ -17,7 +17,7 @@
 
 (defn init-robot-svg [svg]
   (append! svg (make-robot-graphic robot-params))
-  (simulate {:x 400 :y 800 :theta 0} {:trans 0 :rot 0} (.now js/Date)) )
+  (simulate {:x 275 :y 500 :theta 0} {:trans 0 :rot 0} (.now js/Date)) )
 
 (let [last-tick-time (atom 0)]
   (defn time-for-control-tick? []
