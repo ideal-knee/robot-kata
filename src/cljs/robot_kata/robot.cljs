@@ -33,10 +33,12 @@
   (defn stop-simulation! []
     (reset! stop-simulation? true) )
   
-  (defn continue-simulation? [sensed-color]
-    (if @stop-simulation?
-      (reset! stop-simulation? false) ; Returns false
-      true ) ) )
+  (defn continue-simulation? [robot-position sensed-color]
+    (cond
+     @stop-simulation? (reset! stop-simulation? false) ; Returns false
+     (= sensed-color "black") (do (js/alert "FAILURE!") false)
+     (= sensed-color "blue")  (do (js/alert "SUCCESS!") false)
+     :else true ) ) )
 
 (defn simulate [previous-robot-position robot-velocity last-tick-time]
   (let [tick-time      (.now js/Date)
@@ -46,7 +48,7 @@
         sensed-color   (get-color-name (get-pixel-color (get-2d-context (sel1 :#floor))
                                                         (get-sensor-position robot-position robot-params) )) ]
     (set-position! (sel1 :#robot) robot-position)
-    (if (continue-simulation? sensed-color)
+    (if (continue-simulation? robot-position sensed-color)
       (js/requestAnimationFrame #(simulate robot-position
                                            (if (time-for-control-tick?)
                                              (get-new-robot-velocity sensed-color)

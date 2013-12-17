@@ -21,9 +21,10 @@
   (let [floor-context (get-2d-context (sel1 :#floor))
         channel       (chan)                          ]
 
-    (load-image floor-context "roomba-dock.png" #(js/console.log "Robot Kata!"))
-
     (listen (sel1 :#robot-svg) MOUSEMOVE #(put! channel %))
 
-    (init-robot-svg (sel1 :#robot-svg)) ) )
+    (load-image floor-context "roomba-dock.png"
+                #(do
+                   (js/console.log "Robot Kata!")
+                   (init-robot-svg (sel1 :#robot-svg)) ) ) ) )
 
