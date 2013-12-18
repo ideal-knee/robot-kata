@@ -18,3 +18,14 @@ body {
     position: absolute;
 }
 
+#ui-div {
+    position: absolute;
+    left: 550;
+}
+
+#ui-div button {
+    margin: 10px;
+    margin-top: 0;
+    width: 100px;
+}
+
