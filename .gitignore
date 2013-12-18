@@ -10,3 +10,4 @@ pom.xml.asc
 /.repl
 /out
 /resources/public/robot-kata.js
+.DS_Store
