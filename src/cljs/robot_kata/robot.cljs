@@ -1,11 +1,11 @@
 (ns robot-kata.robot
 
-  (:require [dommy.core          :refer [append! listen!                                                     ]]
+  (:require [dommy.core          :refer [append! listen! remove-attr! set-attr!                              ]]
             [robot-kata.geometry :refer [calculate-next-position calculate-position-delta get-sensor-position]]
             [robot-kata.image    :refer [get-2d-context get-color-name get-pixel-color                       ]]
             [robot-kata.svg      :refer [make-robot-graphic set-position!                                    ]] )
 
-  (:require-macros [dommy.macros :refer [node sel1]]) )
+  (:require-macros [dommy.macros :refer [node sel sel1]]) )
 
 (def robot-params {:robot-radius              35 ; pixels
                    :center-to-sensor-distance 30 ; pixels
@@ -22,6 +22,7 @@
 
 (defn init-ui []
   (let [stop-button (node [:button "Stop simulation"])]
+    (set-attr! stop-button :disabled)
     (listen! stop-button :click stop-simulation!)
     (append! (sel1 :#stop-button-div) stop-button) )
   (add-test "Test 1" {:x 275 :y 450 :theta 0})
@@ -32,7 +33,9 @@
 
 (defn add-test [name start-position]
   (let [button (node [:button name])]
-    (listen! button :click #(simulate start-position))
+    (listen! button :click #(do
+                              (disable-start-test-buttons)
+                              (simulate start-position) ))
     (append! (sel1 :#test-start-button-div) (node [:div button])) ) )
 
 (let [last-tick-time (atom 0)]
@@ -44,6 +47,16 @@
 (defn get-new-robot-velocity [sensed-color]
   (cond (= sensed-color "white") {:trans 50 :rot  0}
         :else                    {:trans  0 :rot 10} ) )
+
+(defn enable-start-test-buttons []
+  (doseq [b (sel [:#test-start-button-div :button])]
+    (remove-attr! b :disabled) )
+  (set-attr! (sel1 [:#stop-button-div :button]) :disabled) )
+
+(defn disable-start-test-buttons []
+  (doseq [b (sel [:#test-start-button-div :button])]
+    (set-attr! b :disabled) )
+  (remove-attr! (sel1 [:#stop-button-div :button]) :disabled) )
 
 (let [stop-simulation? (atom false)]
   (defn stop-simulation! []
@@ -71,5 +84,6 @@
                                               (if (time-for-control-tick?)
                                                 (get-new-robot-velocity sensed-color)
                                                 robot-velocity )
-                                              tick-time ))  ) ) ) )
+                                              tick-time ))
+         (enable-start-test-buttons) ) ) ) )
 
