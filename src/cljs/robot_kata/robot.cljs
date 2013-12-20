@@ -57,9 +57,7 @@
       (if (> (- current-time @last-tick-time))
         (reset! last-tick-time current-time) ) ) ) )
 
-(defn ^:export get-new-robot-velocity [robot-state sensed-color]
-  (cond (= sensed-color "white") STRAIGHT
-        :else                    ARC_LEFT ) )
+(defn ^:export get-new-robot-velocity [robot-state sensed-color] (.-STRAIGHT commands))
 
 (defn enable-start-test-buttons []
   (doseq [b (sel [:#test-start-button-div :button])]
