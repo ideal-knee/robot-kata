@@ -15,27 +15,33 @@
                    :bumper-color         "black"
                    :sensor-color         "black" })
 
-(def ^:export STOP                {:trans  0 :rot   0})
-(def ^:export STRAIGHT            {:trans 50 :rot   0})
-(def ^:export ARC_LEFT            {:trans 50 :rot -50})
-(def ^:export ARC_RIGHT           {:trans 50 :rot  50})
-(def ^:export TURN_IN_PLACE_LEFT  {:trans  0 :rot -50})
-(def ^:export TURN_IN_PLACE_RIGHT {:trans  0 :rot  50})
+(def ^:export commands (let [c (new js/Object)]
+                         (set! (.-STOP                c) {:trans  0 :rot   0})
+                         (set! (.-STRAIGHT            c) {:trans 50 :rot   0})
+                         (set! (.-ARC_LEFT            c) {:trans 50 :rot -50})
+                         (set! (.-ARC_RIGHT           c) {:trans 50 :rot  50})
+                         (set! (.-TURN_IN_PLACE_LEFT  c) {:trans  0 :rot -50})
+                         (set! (.-TURN_IN_PLACE_RIGHT c) {:trans  0 :rot  50})
+                         c ))
+(def robot-state (new js/Object))
 
 (defn init-robot-svg [svg]
   (append! svg (make-robot-graphic robot-params))
   (set-position! (sel1 :#robot) {:x 275 :y 450 :theta 0})
-  (init-ui) )
+  (init-ui)
+  (init-robot-state robot-state) )
+
+(defn ^:export init-robot-state [robot-state])
 
 (defn init-ui []
   (let [stop-button (node [:button "Stop simulation"])]
     (set-attr! stop-button :disabled)
     (listen! stop-button :click stop-simulation!)
     (append! (sel1 :#stop-button-div) stop-button) )
-  (add-test "Test 1" {:x 275 :y 450 :theta 0})
-  (add-test "Test 2" {:x 200 :y 450 :theta 45})
-  (add-test "Test 3" {:x 50 :y 150 :theta 90})
-  (add-test "Test 4" {:x 200 :y 50 :theta -150})
+  (add-test "Test 1" {:x 275 :y 450 :theta    0})
+  (add-test "Test 2" {:x 200 :y 450 :theta   45})
+  (add-test "Test 3" {:x  50 :y 150 :theta   90})
+  (add-test "Test 4" {:x 200 :y  50 :theta -150})
   (add-test "Test 5" {:x 500 :y 100 :theta -150}) )
 
 (defn add-test [name start-position]
@@ -51,7 +57,7 @@
       (if (> (- current-time @last-tick-time))
         (reset! last-tick-time current-time) ) ) ) )
 
-(defn ^:export get-new-robot-velocity [sensed-color]
+(defn ^:export get-new-robot-velocity [robot-state sensed-color]
   (cond (= sensed-color "white") STRAIGHT
         :else                    ARC_LEFT ) )
 
@@ -89,7 +95,7 @@
        (if (continue-simulation? robot-position sensed-color)
          (js/requestAnimationFrame #(simulate robot-position
                                               (if (time-for-control-tick?)
-                                                (get-new-robot-velocity sensed-color)
+                                                (get-new-robot-velocity robot-state sensed-color)
                                                 robot-velocity )
                                               tick-time ))
          (enable-start-test-buttons) ) ) ) )
