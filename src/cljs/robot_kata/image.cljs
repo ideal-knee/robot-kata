@@ -4,7 +4,7 @@
   (.getContext canvas "2d") )
 
 (defn get-color-name [color]
-  (let [threshold 192]
+  (let [threshold 128]
     (cond (and (> (color :r) threshold) (> (color :g) threshold) (> (color :b) threshold)) "white"
           (and (> (color :r) threshold) (> (color :g) threshold))                          "yellow"
           (> (color :r) threshold)                                                         "red"
