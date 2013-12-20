@@ -15,6 +15,13 @@
                    :bumper-color         "black"
                    :sensor-color         "black" })
 
+(def ^:export STOP                {:trans  0 :rot   0})
+(def ^:export STRAIGHT            {:trans 50 :rot   0})
+(def ^:export ARC_LEFT            {:trans 50 :rot -50})
+(def ^:export ARC_RIGHT           {:trans 50 :rot  50})
+(def ^:export TURN_IN_PLACE_LEFT  {:trans  0 :rot -50})
+(def ^:export TURN_IN_PLACE_RIGHT {:trans  0 :rot  50})
+
 (defn init-robot-svg [svg]
   (append! svg (make-robot-graphic robot-params))
   (set-position! (sel1 :#robot) {:x 275 :y 450 :theta 0})
@@ -44,9 +51,9 @@
       (if (> (- current-time @last-tick-time))
         (reset! last-tick-time current-time) ) ) ) )
 
-(defn get-new-robot-velocity [sensed-color]
-  (cond (= sensed-color "white") {:trans 50 :rot  0}
-        :else                    {:trans  0 :rot 10} ) )
+(defn ^:export get-new-robot-velocity [sensed-color]
+  (cond (= sensed-color "white") STRAIGHT
+        :else                    ARC_LEFT ) )
 
 (defn enable-start-test-buttons []
   (doseq [b (sel [:#test-start-button-div :button])]
