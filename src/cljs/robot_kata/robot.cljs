@@ -28,10 +28,10 @@
 (defn init-robot-svg [svg]
   (append! svg (make-robot-graphic robot-params))
   (set-position! (sel1 :#robot) {:x 275 :y 450 :theta 0})
-  (init-ui)
-  (init-robot-state robot-state) )
+  (init-ui) )
 
 (defn ^:export init-robot-state [robot-state])
+(defn ^:export get-new-robot-velocity [robot-state sensed-color] (.-STRAIGHT commands))
 
 (defn init-ui []
   (let [stop-button (node [:button "Stop simulation"])]
@@ -54,10 +54,8 @@
 (let [last-tick-time (atom 0)]
   (defn time-for-control-tick? []
     (let [current-time (.now js/Date)]
-      (if (> (- current-time @last-tick-time))
+      (if (>= (- current-time @last-tick-time) 100)
         (reset! last-tick-time current-time) ) ) ) )
-
-(defn ^:export get-new-robot-velocity [robot-state sensed-color] (.-STRAIGHT commands))
 
 (defn enable-start-test-buttons []
   (doseq [b (sel [:#test-start-button-div :button])]
@@ -81,7 +79,9 @@
      :else true ) ) )
 
 (defn simulate
-  ([initial-robot-position] (simulate initial-robot-position {:trans 0 :rot 0} (.now js/Date)))
+  ([initial-robot-position]
+     (init-robot-state robot-state)
+     (simulate initial-robot-position {:trans 0 :rot 0} (.now js/Date)) )
   ([previous-robot-position robot-velocity last-tick-time]
      (let [tick-time      (.now js/Date)
            elapsed-time   (min (- tick-time last-tick-time) 100)
