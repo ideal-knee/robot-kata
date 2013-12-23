@@ -15,6 +15,9 @@
                    :bumper-color         "black"
                    :sensor-color         "black" })
 
+(def control-frequency 30) ; Hz
+(def control-period (/ 1000.0 control-frequency))
+
 (def ^:export commands (let [c (new js/Object)]
                          (set! (.-STOP                c) {:trans  0 :rot   0})
                          (set! (.-STRAIGHT            c) {:trans 50 :rot   0})
@@ -54,7 +57,7 @@
 (let [last-tick-time (atom 0)]
   (defn time-for-control-tick? []
     (let [current-time (.now js/Date)]
-      (if (>= (- current-time @last-tick-time) 100)
+      (if (>= (- current-time @last-tick-time) control-period)
         (reset! last-tick-time current-time) ) ) ) )
 
 (defn enable-start-test-buttons []
@@ -84,7 +87,7 @@
      (simulate initial-robot-position {:trans 0 :rot 0} (.now js/Date)) )
   ([previous-robot-position robot-velocity last-tick-time]
      (let [tick-time      (.now js/Date)
-           elapsed-time   (min (- tick-time last-tick-time) 100)
+           elapsed-time   (min (- tick-time last-tick-time) control-period)
            robot-position (calculate-next-position previous-robot-position
                                                    (calculate-position-delta robot-velocity elapsed-time) )
            sensed-color   (get-color-name (get-pixel-color (get-2d-context (sel1 :#floor))
