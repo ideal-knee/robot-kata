@@ -16,4 +16,3 @@ robot_kata.robot.get_new_robot_velocity = function (s, sensed_color) {
         return s.cmds.STRAIGHT;
     }
 }
-

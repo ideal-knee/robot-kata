@@ -15,7 +15,7 @@
                    :bumper-color         "black"
                    :sensor-color         "black" })
 
-(def control-frequency 30) ; Hz
+(def control-frequency 20) ; Hz
 (def control-period (/ 1000.0 control-frequency))
 
 (def ^:export commands (let [c (new js/Object)]
