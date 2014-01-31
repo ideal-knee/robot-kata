@@ -20,7 +20,7 @@ black part.
 
 ### How to program the robot ###
 
-To program the robot, you can overwrite two functions in the JavaScript console:
+To program the robot, you override two functions in the JavaScript console:
 `robot_kata.robot.init_robot_state` and
 `robot_kata.robot.get_new_robot_velocity`.  (Best to edit in an external editor
 then copy and paste in.)  `init_robot_state` is called at the beginning of each
