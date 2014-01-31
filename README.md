@@ -6,6 +6,8 @@ programming problem.
 
 ### The Problem ##
 
+![Screenshot](screenshot.png)
+
 This simple robot (the gray circle with the black outline) needs to get back to
 its dock (the black and blue blob) to charge.  The dock emits infrared lobes
 (the green, yellow, and red blobs) to guide the robot in.  The robot has a
